@@ -95,7 +95,7 @@ export function LandingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="hidden lg:block">
             <img 
-              src="https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop" 
+              src="/owen-akers.jpg" 
               alt="Owen Akers" 
               className="rounded-lg shadow-2xl object-cover h-full w-full"
             />

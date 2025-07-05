@@ -2,7 +2,7 @@
 
 A full-stack web application that provides key market data and allows users to build, manage, and analyze a personal stock watchlist. This project was built with a Python/Flask backend and a React/TypeScript frontend.
 
-**Live Demo:** [Hosted on Vercel](#)
+**Live Demo:** [Hosted on Vercel](https://market-mentor-kappa.vercel.app/)
 
 ---
 
