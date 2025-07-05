@@ -20,6 +20,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+# Command to create database tables ---
+@app.cli.command("create-db")
+def create_db():
+    """Creates all database tables."""
+    db.create_all()
+    print("Database tables created.")
 
 # --- DATABASE MODELS ---
 watchlist_table = db.Table('watchlist',
