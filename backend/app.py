@@ -30,7 +30,7 @@ watchlist_table = db.Table('watchlist',
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(120), nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
     watchlist_items = db.relationship('CompanyProfile', secondary=watchlist_table, backref=db.backref('watchers', lazy='dynamic'))
 
 class CompanyProfile(db.Model):
@@ -46,7 +46,6 @@ class CompanyProfile(db.Model):
 
 # --- HELPER FUNCTIONS ---
 def get_api_profile_data(symbol: str) -> Optional[dict]:
-    """Fetches profile data from Finnhub API."""
     api_key = os.environ.get('FINNHUB_API_KEY')
     url = f"https://finnhub.io/api/v1/stock/profile2?symbol={symbol.upper()}&token={api_key}"
     try:
@@ -56,6 +55,18 @@ def get_api_profile_data(symbol: str) -> Optional[dict]:
     except requests.exceptions.RequestException as e:
         print(f"Error fetching Finnhub profile data: {e}")
         return None
+
+def fetch_and_save_profile_data(symbol: str) -> Optional[CompanyProfile]:
+    """Fetches profile data from API and creates a CompanyProfile object."""
+    api_data = get_api_profile_data(symbol)
+    if not api_data or not api_data.get('name'): # Check for valid data
+        return None
+    profile = CompanyProfile(
+        symbol=symbol.upper(), name=api_data.get('name'), country=api_data.get('country'),
+        finnhub_industry=api_data.get('finnhubIndustry'), market_capitalization=api_data.get('marketCapitalization'),
+        logo_url=api_data.get('logo')
+    )
+    return profile
 
 def get_price_history(symbol: str) -> Optional[list]:
     """Fetches price history from yfinance."""
@@ -71,7 +82,12 @@ def get_price_history(symbol: str) -> Optional[list]:
         print(f"Error fetching price history for {symbol}: {e}")
         return None
 
+
 # --- API ENDPOINTS ---
+@app.route("/")
+def index():
+    return jsonify({"status": "ok", "message": "Market Mentor API is running"})
+
 @app.route("/api/market-snapshot")
 def market_snapshot():
     indices = {'^GSPC': 'S&P 500', '^IXIC': 'NASDAQ Composite', '^DJI': 'Dow Jones'}
@@ -87,46 +103,56 @@ def market_snapshot():
                     "change": round(change, 2), "percent_change": round(percent_change, 2)
                 })
         except Exception as e:
-            print(f"Could not fetch data for {symbol}: {e}")
+            print(f"Could not fetch market data for {symbol}: {e}")
     return jsonify(market_data)
-
-# In backend/app.py
 
 @app.route('/api/profile/<symbol>')
 def get_profile_endpoint(symbol):
-    profile_from_db = CompanyProfile.query.filter_by(symbol=symbol.upper()).first()
-    if not profile_from_db:
-        # This logic remains the same
-        profile_from_db = fetch_and_save_profile_data(symbol)
-        if not profile_from_db:
-            return jsonify({"error": "Could not find or fetch profile for this symbol"}), 404
-        db.session.add(profile_from_db)
+    profile = CompanyProfile.query.filter_by(symbol=symbol.upper()).first()
+    if not profile:
+        profile = fetch_and_save_profile_data(symbol)
+        if not profile: return jsonify({"error": "Could not find or fetch profile for this symbol"}), 404
+        db.session.add(profile)
         db.session.commit()
 
     data_to_return = {
-        "name": profile_from_db.name, "industry": profile_from_db.finnhub_industry,
-        "logo_url": profile_from_db.logo_url, "pe_ratio": None, "eps": None,
-        "price_history": get_price_history(symbol),
-        "analyst_rating": None # <-- Add default value for new field
+        "name": profile.name, "industry": profile.finnhub_industry,
+        "logo_url": profile.logo_url, "pe_ratio": None, "eps": None,
+        "country": profile.country, "market_cap": profile.market_capitalization,
+        "price_history": get_price_history(symbol)
     }
-    
     try:
-        ticker = yf.Ticker(symbol.upper())
-        info = ticker.info
+        info = yf.Ticker(symbol.upper()).info
         if 'trailingPE' in info: data_to_return['pe_ratio'] = info['trailingPE']
         if 'trailingEps' in info: data_to_return['eps'] = info['trailingEps']
-        
-        # --- NEW: Get the latest analyst recommendation ---
-        recommendations = ticker.recommendations
-        if not recommendations.empty:
-            # Get the most recent recommendation
-            latest_rec = recommendations.iloc[-1]
-            data_to_return['analyst_rating'] = latest_rec['strongBuy'] + latest_rec['buy']
-
     except Exception as e:
         print(f"Could not fetch yfinance info for {symbol}: {e}")
-        
     return jsonify(data_to_return)
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    username, password = data.get('username'), data.get('password')
+    if not username or not password: return jsonify({"error": "Username and password are required"}), 400
+    if User.query.filter_by(username=username).first(): return jsonify({"error": "Username is already taken"}), 409
+    
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+    new_user = User(username=username, password_hash=hashed_password)
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": f"User '{username}' created successfully.", "user_id": new_user.id}), 201
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username, password = data.get('username'), data.get('password')
+    if not username or not password: return jsonify({"error": "Username and password are required"}), 400
+    
+    user = User.query.filter_by(username=username).first()
+    if user and bcrypt.check_password_hash(user.password_hash, password):
+        return jsonify({"message": "Login successful!", "user_id": user.id}), 200
+    else:
+        return jsonify({"error": "Invalid username or password"}), 401
 
 @app.route('/api/watchlist/add', methods=['POST'])
 def add_to_watchlist():
@@ -135,13 +161,8 @@ def add_to_watchlist():
     symbol = data.get('symbol').upper()
     profile = CompanyProfile.query.filter_by(symbol=symbol).first()
     if not profile:
-        api_data = get_api_profile_data(symbol)
-        if not api_data: return jsonify({"error": f"Could not fetch profile for {symbol}"}), 404
-        profile = CompanyProfile(
-            symbol=symbol, name=api_data.get('name'), country=api_data.get('country'),
-            finnhub_industry=api_data.get('finnhubIndustry'),
-            market_capitalization=api_data.get('marketCapitalization'), logo_url=api_data.get('logo')
-        )
+        profile = fetch_and_save_profile_data(symbol)
+        if not profile: return jsonify({"error": f"Could not fetch profile for {symbol}"}), 404
         db.session.add(profile)
     if profile not in user.watchlist_items:
         user.watchlist_items.append(profile)
@@ -162,55 +183,6 @@ def remove_from_watchlist():
         user.watchlist_items.remove(profile)
         db.session.commit()
     return jsonify({"message": "Stock removed"})
-
-# --- NEW: USER REGISTRATION ENDPOINT ---
-@app.route('/api/register', methods=['POST'])
-def register():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-
-    if not username or not password:
-        return jsonify({"error": "Username and password are required"}), 400
-
-    # Check if user already exists
-    if User.query.filter_by(username=username).first():
-        return jsonify({"error": "Username is already taken"}), 409
-
-    # Hash the password and create the new user
-    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-    new_user = User(username=username, password_hash=hashed_password)
-    
-    db.session.add(new_user)
-    db.session.commit()
-
-    return jsonify({"message": f"User '{username}' created successfully.", "user_id": new_user.id}), 201
-
-# In backend/app.py
-
-# --- NEW: USER LOGIN ENDPOINT ---
-@app.route('/api/login', methods=['POST'])
-def login():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
-
-    if not username or not password:
-        return jsonify({"error": "Username and password are required"}), 400
-
-    user = User.query.filter_by(username=username).first()
-
-    # Check if user exists and if the password hash matches
-    if user and bcrypt.check_password_hash(user.password_hash, password):
-        # In a real app, you would return a session token (JWT) here.
-        # For this project, returning the user_id is enough to prove it works.
-        return jsonify({
-            "message": "Login successful!",
-            "user_id": user.id
-        }), 200
-    else:
-        # Generic error for security
-        return jsonify({"error": "Invalid username or password"}), 401
 
 if __name__ == "__main__":
     app.run()
