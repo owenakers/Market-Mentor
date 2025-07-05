@@ -97,7 +97,7 @@ export function LandingPage() {
             <img 
               src="/owen-akers.jpg" 
               alt="Owen Akers" 
-              className="rounded-lg shadow-2xl object-cover h-full w-full"
+              className="rounded-lg shadow-2xl object-cover aspect-video w-full"
             />
           </div>
           <div className="text-left">
