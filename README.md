@@ -6,8 +6,6 @@ A full-stack web application that provides key market data and allows users to b
 
 ---
 
-![Market Mentor Screenshot](https://i.imgur.com/33aH44p.jpg)
-
 ## Features
 
 * **Live Market Snapshot:** View real-time data for major indices like the S&P 500, NASDAQ, and Dow Jones.
