@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; 
 import { IndexCard } from '../components/IndexCard';
 import { WatchlistTable } from '../components/WatchlistTable';
 
@@ -21,13 +21,12 @@ export function DashboardPage() {
     const [marketData, setMarketData] = useState<IndexData[]>([]);
     const [symbolInput, setSymbolInput] = useState('');
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(''); // <-- NEW: State for error messages
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const USER_ID = localStorage.getItem('loggedInUserId');
     const API_URL = import.meta.env.VITE_API_BASE_URL;
 
-    // This function now handles all data fetching for the dashboard
     const fetchData = () => {
         if (!USER_ID) {
             navigate('/login');
@@ -55,7 +54,7 @@ export function DashboardPage() {
 
     const handleAddStock = async (e: React.FormEvent) => {
         e.preventDefault();
-        setError(''); // Clear previous errors
+        setError('');
         if (!symbolInput || !USER_ID) return;
         
         try {
@@ -68,9 +67,9 @@ export function DashboardPage() {
             if (!response.ok) throw new Error(data.error || 'Failed to add stock');
             
             setSymbolInput('');
-            fetchData(); // <-- IMPROVEMENT: Centralized refresh
+            fetchData();
         } catch (err: any) {
-            setError(err.message); // <-- IMPROVEMENT: Set error state instead of alert
+            setError(err.message);
         }
     };
 
@@ -85,9 +84,9 @@ export function DashboardPage() {
             const data = await response.json();
             if (!response.ok) throw new Error(data.error || 'Failed to remove stock');
             
-            fetchData(); // <-- IMPROVEMENT: Centralized refresh
+            fetchData();
         } catch (err: any) {
-            alert(err.message); // Alert is still ok here, or you could use the error state
+            alert(err.message);
         }
     };
 
@@ -97,7 +96,15 @@ export function DashboardPage() {
 
     return (
         <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold mb-6 text-gray-800">Market Snapshot</h1>
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-3xl font-bold text-gray-800">Market Snapshot</h1>
+                <Link to="/learn">
+                    <button className="bg-white text-indigo-600 font-semibold px-4 py-2 rounded-lg border-2 border-indigo-600 hover:bg-indigo-50 transition">
+                        Start Learning Path
+                    </button>
+                </Link>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 {marketData.map(index => <IndexCard key={index.symbol} name={index.symbol} price={index.price} change={index.change} percent_change={index.percent_change} />)}
             </div>
@@ -114,7 +121,6 @@ export function DashboardPage() {
                     />
                     <button type="submit" className="bg-indigo-600 text-white font-semibold px-6 py-3 rounded-md hover:bg-indigo-700">Add</button>
                 </div>
-                {/* --- NEW: Display error messages gracefully --- */}
                 {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
             </form>
             <WatchlistTable 

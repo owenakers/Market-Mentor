@@ -6,6 +6,7 @@ import { StockDetailPage } from './pages/StockDetailPage';
 import { LandingPage } from './pages/LandingPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
+import { LearningPathPage } from './pages/LearningPathPage'; 
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/learn" element={<LearningPathPage />} /> 
         <Route path="/stock/:symbol" element={<StockDetailPage />} />
       </Routes>
     </div>
