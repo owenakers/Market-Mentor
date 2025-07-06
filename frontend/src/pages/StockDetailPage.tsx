@@ -3,7 +3,6 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { PriceChart } from '../components/PriceChart';
 import { FundamentalsCard } from '../components/FundamentalsCard';
 
-// Define the data types
 type StockDetail = {
   name: string;
   industry: string;
@@ -22,7 +21,7 @@ export function StockDetailPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Protect this route
+        // This logic is correct: protect the route
         const userId = localStorage.getItem('loggedInUserId');
         if (!userId) {
             navigate('/login');
@@ -32,7 +31,6 @@ export function StockDetailPage() {
         if (!symbol) return;
         setLoading(true);
 
-        // Use environment variable 
         const API_URL = import.meta.env.VITE_API_BASE_URL;
         fetch(`${API_URL}/api/profile/${symbol}`)
             .then(res => res.ok ? res.json() : Promise.reject('Failed to load data'))
@@ -45,11 +43,11 @@ export function StockDetailPage() {
     }, [symbol, navigate]);
 
     if (loading) {
-        return <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">Loading details...</div>;
+        return <div className="max-w-7xl mx-auto py-8 px-4 text-center">Loading details...</div>;
     }
 
     if (!stock) {
-        return <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center text-red-500">Failed to load data.</div>;
+        return <div className="max-w-7xl mx-auto py-8 px-4 text-center text-red-500">Failed to load data.</div>;
     }
 
     return (
@@ -72,7 +70,7 @@ export function StockDetailPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
                 <div className="lg:col-span-2 bg-white rounded-lg shadow p-6">
                     {stock.price_history ? (
-                        <PriceChart chartData={stock.price_history} symbol={symbol!} />
+                        <PriceChart chartData={stock.price_history} symbol={symbol!} peRatio={stock.pe_ratio}/>
                     ) : ( <p>No price history available.</p> )}
                 </div>
                 
