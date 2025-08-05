@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { IndexCard } from '../components/IndexCard';
 import { Footer } from '../components/Footer'; 
 import { Link } from 'react-router-dom';
+import { LogoCarousel } from '../components/LogoCarousel';
+
 
 type IndexData = {
   symbol: string;
@@ -65,29 +67,8 @@ export function LandingPage() {
         </div>
       </div>
 
-      {/* --- NEW "TRUSTED BY" LOGO BAR --- */}
-      <div className="bg-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
-            <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-              <p className="text-xl font-bold text-gray-400">FORTUNE 500</p>
-            </div>
-            <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-              <p className="text-xl font-bold text-gray-400">3M</p>
-            </div>
-            <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-              <p className="text-xl font-bold text-gray-400">Microsoft</p>
-            </div>
-            <div className="col-span-1 flex justify-center md:col-span-3 lg:col-span-1">
-               <p className="text-xl font-bold text-gray-400">NVIDIA</p>
-            </div>
-            <div className="col-span-2 flex justify-center md:col-span-3 lg:col-span-1">
-               <p className="text-xl font-bold text-gray-400">Nasdaq</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <LogoCarousel />
+      
       {/* --- MAIN CONTENT CONTAINER --- */}
       {/* This container adds the correct margins and padding for the rest of the page content */}
       <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 space-y-24">
