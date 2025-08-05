@@ -7,6 +7,9 @@ import { LandingPage } from './pages/LandingPage';
 import { RegisterPage } from './pages/RegisterPage';
 import { LoginPage } from './pages/LoginPage';
 import { LearningPathPage } from './pages/LearningPathPage'; 
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+
 
 
 function App() {
@@ -20,6 +23,8 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/learn" element={<LearningPathPage />} /> 
         <Route path="/stock/:symbol" element={<StockDetailPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </div>
   );

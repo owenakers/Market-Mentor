@@ -68,7 +68,7 @@ export function LandingPage() {
       </div>
 
       <LogoCarousel />
-      
+
       {/* --- MAIN CONTENT CONTAINER --- */}
       {/* This container adds the correct margins and padding for the rest of the page content */}
       <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 space-y-24">
@@ -76,7 +76,7 @@ export function LandingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="hidden lg:block">
             <img 
-              src="/owen-akers.jpg" 
+              src="/owen-akers.jpeg" 
               alt="Owen Akers" 
               className="rounded-lg shadow-2xl object-cover aspect-video w-full"
             />
@@ -84,7 +84,8 @@ export function LandingPage() {
           <div className="text-left">
             <h2 className="text-3xl font-bold text-gray-900">My Mission</h2>
             <p className="mt-4 text-lg text-gray-600">
-              As someone who is new to investing, I know how intimidating the financial markets can be. I built Market Mentor to demystify the world of stocks and economics. My goal is to provide clear, understandable data that empowers beginners to make informed decisions and learn with confidence.
+              As someone who is new to investing, I know how intimidating the financial markets can be. I built Market Mentor to provide a simple and free
+              outlet to study stocks. My goal is to provide clear, understandable data that empowers beginners to make informed decisions and learn with confidence.
             </p>
           </div>
         </div>
