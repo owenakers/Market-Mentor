@@ -43,23 +43,23 @@ export function Footer() {
             <div>
               <h4 className="text-sm font-semibold text-gray-500 tracking-wider uppercase">Product</h4>
               <ul className="mt-4 space-y-4">
-                <li><Link to="/dashboard" className={linkStyles}>Dashboard</Link></li>
-                <li><Link to="/watchlist" className={linkStyles}>Watchlist</Link></li>
-                <li><Link to="/screener" className={linkStyles}>Screener</Link></li>
+                <li><Link to="/dashboard" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Dashboard</Link></li>
+                <li><Link to="/watchlist" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Watchlist</Link></li>
+                <li><Link to="/screener" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Screener</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-semibold text-gray-500 tracking-wider uppercase">Company</h4>
               <ul className="mt-4 space-y-4">
-                <li><Link to="/about" className={linkStyles}>About</Link></li>
-                <li><Link to="/contact" className={linkStyles}>Contact</Link></li>
+                <li><Link to="/about" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>About</Link></li>
+                <li><Link to="/contact" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Contact</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-semibold text-gray-500 tracking-wider uppercase">Legal</h4>
               <ul className="mt-4 space-y-4">
-                <li><Link to="/privacy" className={linkStyles}>Privacy Policy</Link></li>
-                <li><Link to="/terms" className={linkStyles}>Terms of Service</Link></li>
+                <li><Link to="/privacy" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Privacy Policy</Link></li>
+                <li><Link to="/terms" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Terms of Service</Link></li>
               </ul>
             </div>
           </div>

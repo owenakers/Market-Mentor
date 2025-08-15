@@ -1,4 +1,5 @@
 // frontend/src/pages/AboutPage.tsx
+import { Footer } from '../components/Footer';
 
 export function AboutPage() {
   return (
@@ -67,6 +68,7 @@ export function AboutPage() {
         </div>
       </div>
 
+      <Footer />
     </div>
   );
 }

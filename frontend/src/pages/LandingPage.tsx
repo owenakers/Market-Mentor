@@ -3,6 +3,7 @@ import { IndexCard } from '../components/IndexCard';
 import { Footer } from '../components/Footer'; 
 import { Link } from 'react-router-dom';
 import { LogoCarousel } from '../components/LogoCarousel';
+import PortfolioSection from '../components/PortfolioSection';
 
 
 type IndexData = {
@@ -69,29 +70,32 @@ export function LandingPage() {
 
       <LogoCarousel />
 
-      {/* --- MAIN CONTENT CONTAINER --- */}
-      {/* This container adds the correct margins and padding for the rest of the page content */}
-      <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6 lg:px-8 space-y-24">
-        {/* About Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div className="hidden lg:block">
-            <img 
-              src="/owen-akers.jpeg" 
-              alt="Owen Akers" 
-              className="rounded-lg shadow-2xl object-cover aspect-video w-full"
-            />
-          </div>
-          <div className="text-left">
-            <h2 className="text-3xl font-bold text-gray-900">My Mission</h2>
-            <p className="mt-4 text-lg text-gray-600">
-              As someone who is new to investing, I know how intimidating the financial markets can be. I built Market Mentor to provide a simple and free
-              outlet to study stocks. My goal is to provide clear, understandable data that empowers beginners to make informed decisions and learn with confidence.
-            </p>
+      <PortfolioSection />
+
+      {/* --- ABOUT / MISSION SECTION --- */}
+      <section className="w-full bg-gray-200 py-30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="hidden lg:block">
+              <img 
+                src="/owen-akers.jpeg" 
+                alt="Owen Akers" 
+                className="rounded-lg shadow-2xl object-cover aspect-video w-full"
+              />
+            </div>
+            <div className="text-left">
+              <h2 className="text-3xl font-bold text-gray-900">My Mission</h2>
+              <p className="mt-4 text-lg text-gray-600">
+                As someone who is new to investing, I know how intimidating the financial markets can be. I built Market Mentor to provide a simple and free
+                outlet to study stocks. My goal is to provide clear, understandable data that empowers beginners to make informed decisions and learn with confidence.
+              </p>
+            </div>
           </div>
         </div>
+      </section>
 
         {/* Market Snapshot Section */}
-        <div>
+        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Today's Market Snapshot</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {marketData.map(index => (
@@ -105,7 +109,6 @@ export function LandingPage() {
             ))}
           </div>
         </div>
-      </div>
       <Footer />
     </>
   );
