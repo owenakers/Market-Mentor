@@ -1,6 +1,6 @@
 // frontend/src/App.tsx
 import { Routes, Route } from 'react-router-dom';
-import { Navbar } from './components/Navbar';
+import { Navbar } from './components/Sections/Navbar';
 import { DashboardPage } from './pages/DashboardPage';
 import { StockDetailPage } from './pages/StockDetailPage';
 import { LandingPage } from './pages/LandingPage';

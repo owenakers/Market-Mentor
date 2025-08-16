@@ -1,5 +1,5 @@
 // frontend/src/pages/AboutPage.tsx
-import { Footer } from '../components/Footer';
+import { Footer } from '../components/Sections/Footer';
 
 export function AboutPage() {
   return (
