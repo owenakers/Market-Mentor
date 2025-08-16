@@ -57,7 +57,7 @@ export default function MissionSection() {
 
             <motion.h2
               variants={itemVariants}
-              className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
+              className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6"
             >
               Why I Built{" "}
               <span className="bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
@@ -85,8 +85,8 @@ export default function MissionSection() {
               <span className="font-semibold text-indigo-600">
                 Market Mentor
               </span>
-              . It’s the tool I wish I had when I started — a clear, simple, and
-              free platform designed to cut through the noise. My mission is to
+              . It’s the tool I wish I had when I started. It's a clear, simple, and
+              free guide to investing. My mission is to
               translate complex financial data into understandable insights,
               empowering you to start your investment journey with{" "}
               <span className="font-semibold text-indigo-600">

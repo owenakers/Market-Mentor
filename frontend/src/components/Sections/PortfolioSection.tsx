@@ -54,7 +54,7 @@ export default function PortfolioSection() {
               variants={itemVariants} 
               className="text-lg text-gray-600 mb-8 leading-relaxed"
             >
-              Track your assets, analyze market trends, and dive deep into company
+              Track stocks you are interested in, analyze market trends, and dive deep into company
               fundamentals. Market Mentor provides the institutional-grade data you
               need to build your investment strategy with confidence.
             </motion.p>
