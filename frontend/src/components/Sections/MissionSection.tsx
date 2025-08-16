@@ -1,97 +1,101 @@
-import { motion } from 'framer-motion';
+// MissionSection.tsx
+import { motion } from "framer-motion";
 
-// Define animation variants for the text container to stagger its children
-const textContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2, // Animate each child with a 0.2s delay
-      delayChildren: 0.2,   // Start the animation after a brief delay
-    },
-  },
-};
-
-// Define the animation for individual text elements (slide-up and fade-in)
-const textItemVariants = {
+const containerVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: "easeOut", staggerChildren: 0.2 }
   },
 };
 
-// Define a unique animation for the image (subtle rotation and scale)
-const imageVariants = {
-    hidden: { opacity: 0, scale: 0.9, rotate: -5 },
-    visible: {
-        opacity: 1,
-        scale: 1,
-        rotate: 0,
-        transition: {
-            duration: 0.8,
-            ease: "circOut" 
-        }
-    }
-}
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
 
 export default function MissionSection() {
-    return (
-        // Section container with background color and padding
-        <section className="w-full bg-gray-200 py-28 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Grid layout for the two-column design */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                {/* Reordered columns for better mobile layout */}
-                
-                {/* Animated Text Column with Stagger Effect */}
-                <motion.div 
-                    className="text-left lg:order-2" // On large screens, this column will be the 2nd item
-                    variants={textContainerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.3 }}
-                >
-                    <motion.h2 
-                    variants={textItemVariants}
-                    className="text-3xl md:text-4xl font-bold text-gray-900"
-                    >
-                    My Story: Why Market Mentor?
-                    </motion.h2>
-                    <motion.p 
-                    variants={textItemVariants}
-                    className="mt-6 text-lg text-gray-600"
-                    >
-                    I remember being completely overwhelmed by investing. Seeing acronyms like P/E, EPS, and ROE scared me away. I wanted to learn about investing, but there wasn't a free and simple option. I knew there had to be a better way.
-                    </motion.p>
-                    <motion.p 
-                    variants={textItemVariants}
-                    className="mt-4 text-lg text-gray-600"
-                    >
-                    That's why I built Market Mentor. It's the tool I wish I had when I started. It's a clear, simple, and free platform designed to cut through the noise. My mission is to translate complex financial data into understandable insights, empowering you to start your investment journey with <span className="font-semibold text-indigo-600">confidence, not confusion.</span>
-                    </motion.p>
-                </motion.div>
+  return (
+    <section className="w-full bg-gray-50 py-36 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
 
-                {/* Animated Image Column */}
-                <motion.div
-                    className="lg:order-1" // On large screens, this column will be the 1st item
-                    variants={imageVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.5 }}
-                >
-                    <img 
-                    src="/images/owen/owen-akers.jpeg" 
-                    alt="Owen Akers" 
-                    className="rounded-lg shadow-2xl object-cover aspect-[4/3] w-full"
-                    onError={(e) => { e.currentTarget.src = 'https://placehold.co/600x450/e5e7eb/334155?text=Image+Not+Found'; }}
-                    />
-                </motion.div>
+          {/* Image Column */}
+          <motion.div
+            className="w-full md:w-1/2 flex justify-center md:justify-start"
+            initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <img
+              src="/images/owen/owen-akers.jpeg"
+              alt="Owen Akers"
+              className="rounded-2xl shadow-lg object-cover aspect-[4/3] w-full max-w-md hover:scale-105 transition-transform duration-500"
+              onError={(e) => {
+                e.currentTarget.src =
+                  "https://placehold.co/600x450/e5e7eb/334155?text=Image+Not+Found";
+              }}
+            />
+          </motion.div>
 
-                </div>
-            </div>
-        </section>
-    );
+          {/* Text Column */}
+          <motion.div
+            className="w-full md:w-1/2 text-left"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+          >
+            <motion.p
+              variants={itemVariants}
+              className="text-sm uppercase tracking-wide text-indigo-600 font-semibold mb-3"
+            >
+              My Journey
+            </motion.p>
+
+            <motion.h2
+              variants={itemVariants}
+              className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6"
+            >
+              Why I Built{" "}
+              <span className="bg-gradient-to-r from-indigo-500 to-indigo-700 bg-clip-text text-transparent">
+                Market Mentor
+              </span>
+            </motion.h2>
+
+            <motion.p
+              variants={itemVariants}
+              className="text-lg text-gray-600 leading-relaxed mb-4"
+            >
+              I remember being completely overwhelmed by investing. Seeing terms
+              like <span className="font-mono">P/E</span>,{" "}
+              <span className="font-mono">EPS</span>, and{" "}
+              <span className="font-mono">ROE</span> scared me away. I wanted to
+              learn, but there wasn’t a free and simple option. I knew there had
+              to be a better way.
+            </motion.p>
+
+            <motion.p
+              variants={itemVariants}
+              className="text-lg text-gray-600 leading-relaxed"
+            >
+              That’s why I built{" "}
+              <span className="font-semibold text-indigo-600">
+                Market Mentor
+              </span>
+              . It’s the tool I wish I had when I started — a clear, simple, and
+              free platform designed to cut through the noise. My mission is to
+              translate complex financial data into understandable insights,
+              empowering you to start your investment journey with{" "}
+              <span className="font-semibold text-indigo-600">
+                confidence, not confusion.
+              </span>
+            </motion.p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 }

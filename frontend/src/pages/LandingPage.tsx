@@ -4,7 +4,7 @@ import HeroSection from '../components/Sections/HeroSection';
 import { LogoCarousel } from '../components/LogoCarousel';
 import PortfolioSection from '../components/Sections/PortfolioSection';
 import MissionSection from '../components/Sections/MissionSection';
-import MarketSnapshotSection from '../components/MarketSnapshotSection';
+import MarketSnapshotSection from '../components/Sections/MarketSnapshotSection';
 import { Footer } from '../components/Sections/Footer'; 
 
 type IndexData = {
