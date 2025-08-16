@@ -34,7 +34,7 @@ export function Navbar() {
           {/* --- Logo and Site Name --- */}
           <Link to="/" className="flex items-center gap-3">
             {/* --- LOGO IMAGE: Height changed from h-8 to h-12 --- */}
-            <img className="h-20 w-auto" src="/Market_mentor-logo.png" alt="Market Mentor Logo" />
+            <img className="h-20 w-auto" src="/images/Market_mentor-logo.png" alt="Market Mentor Logo" />
             <span className="font-bold text-xl text-gray-800">Market Mentor</span>
           </Link>
           

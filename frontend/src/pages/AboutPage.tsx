@@ -31,7 +31,7 @@ export function AboutPage() {
              
             <img 
               className="h-96 w-full object-cover rounded-lg shadow-xl" 
-              src="/owen-headshot.jpeg" 
+              src="/images/owen/owen-headshot.jpeg" 
               alt="Owen Akers, Founder"
             />
           </div>

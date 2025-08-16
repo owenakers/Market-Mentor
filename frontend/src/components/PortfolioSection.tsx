@@ -29,7 +29,7 @@ export default function PortfolioSection() {
         {/* Image on the right */}
         <div className="mt-12 md:mt-0 flex-shrink-0">
           <img
-            src="/phone.png"
+            src="/images/phone.png"
             alt="Market Mentor Dashboard on a Phone"
             className="w-[400px] h-auto"
             onError={(e) => { e.currentTarget.src = 'https://placehold.co/300x600/1e293b/ffffff?text=Error'; }}

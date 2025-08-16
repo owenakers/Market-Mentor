@@ -37,7 +37,7 @@ export function LandingPage() {
             playsInline 
             className="absolute top-0 left-0 w-full h-full object-cover z-0"
         >
-            <source src="/market-background.mp4" type="video/mp4" />
+            <source src="/videos/market-background.mp4" type="video/mp4" />
             Your browser does not support the video tag.
         </video>
 
@@ -78,7 +78,7 @@ export function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="hidden lg:block">
               <img 
-                src="/owen-akers.jpeg" 
+                src="/images/owen/owen-akers.jpeg" 
                 alt="Owen Akers" 
                 className="rounded-lg shadow-2xl object-cover aspect-video w-full"
               />
@@ -95,7 +95,7 @@ export function LandingPage() {
       </section>
 
         {/* Market Snapshot Section */}
-        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8 mb-8">
           <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Today's Market Snapshot</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {marketData.map(index => (
