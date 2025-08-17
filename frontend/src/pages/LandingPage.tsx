@@ -6,6 +6,7 @@ import PortfolioSection from '../components/Sections/PortfolioSection';
 import MissionSection from '../components/Sections/MissionSection';
 import MarketSnapshotSection from '../components/Sections/MarketSnapshotSection';
 import { Footer } from '../components/Sections/Footer'; 
+import CTASection from '../components/Sections/CTASection';
 
 type IndexData = {
   symbol: string;
@@ -41,6 +42,7 @@ export function LandingPage() {
       <MarketSnapshotSection marketData={marketData} />
       <PortfolioSection />
       <MissionSection />
+      <CTASection />
       <Footer />
     </>
   );

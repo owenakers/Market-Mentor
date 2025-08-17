@@ -19,10 +19,49 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
+// Updated animation for a more dynamic "hovering" effect
+const shapeVariants = {
+    initial: {
+        scale: 1,
+        y: 0,
+        x: 0,
+        rotate: 0,
+    },
+    animate: {
+        y: [0, -15, 5, 0],
+        x: [0, 10, -10, 0],
+        rotate: [0, 5, -5, 0],
+        transition: {
+            duration: 20,
+            ease: "easeInOut",
+            repeat: Infinity,
+            repeatType: "loop",
+        }
+    }
+}
+
 export default function PortfolioSection() {
   return (
-    <section className="w-full py-28 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    // Added `relative` to contain the background shapes
+    <section className="relative w-full py-28 bg-white overflow-hidden">
+      
+      {/* Decorative background shapes from CTASection */}
+      <motion.div
+        className="absolute top-1/4 -right-20 w-80 h-80 bg-purple-100 rounded-full blur-2xl opacity-70"
+        variants={shapeVariants}
+        initial="initial"
+        animate="animate"
+      />
+      <motion.div
+        className="absolute bottom-1/4 -left-20 w-72 h-72 bg-indigo-100 rounded-full blur-2xl opacity-70"
+        variants={shapeVariants}
+        initial="initial"
+        animate="animate"
+        transition={{ ...shapeVariants.animate.transition, delay: 2 }}
+      />
+
+      {/* Added `relative z-10` to keep content on top */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
           
           {/* Text Column */}
@@ -102,7 +141,7 @@ export default function PortfolioSection() {
               alt="Market Mentor Dashboard on a Phone"
               className="w-[360px] md:w-[420px] h-auto rounded-2xl"
               onError={(e) => { 
-                e.currentTarget.src = 'https://placehold.co/300x600/1e293b/ffffff?text=Error'; 
+                e.currentTarget.src = 'https://placehold.co/300x600/1e2b3b/ffffff?text=Error'; 
               }}
             />
           </motion.div>
