@@ -65,7 +65,7 @@ export default function HeroSection() {
         </motion.p>
         <motion.div variants={itemVariants} className="mt-10">
           <Link to="/register">
-            <button className="bg-indigo-500 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-600 transition text-lg shadow-lg">
+            <button className="bg-indigo-500 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-600 hover:cursor-pointer transition text-lg shadow-lg">
               Get Started for Free
             </button>
           </Link>

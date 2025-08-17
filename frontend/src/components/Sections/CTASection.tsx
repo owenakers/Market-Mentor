@@ -88,7 +88,7 @@ export default function CTASection() {
         
         <motion.div variants={itemVariants} className="mt-10">
           <Link to="/register">
-            <button className="bg-indigo-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-700 transition duration-300 text-lg shadow-lg transform hover:scale-105">
+            <button className="bg-indigo-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-700 transition duration-300 text-lg shadow-lg transform hover:cursor-pointer hover:scale-105">
               Get Started for Free
             </button>
           </Link>

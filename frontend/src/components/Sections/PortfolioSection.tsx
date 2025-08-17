@@ -105,7 +105,7 @@ export default function PortfolioSection() {
               <Link to="/register">
                 <motion.button 
                   whileHover={{ scale: 1.05, boxShadow: "0px 8px 20px rgba(99, 102, 241, 0.4)" }}
-                  className="bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg text-lg shadow-md transition"
+                  className="bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg text-lg shadow-md transition hover:cursor-pointer"
                 >
                   Start Analyzing
                 </motion.button>

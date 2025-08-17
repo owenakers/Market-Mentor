@@ -41,11 +41,10 @@ export function Footer() {
           {/* Links Section */}
           <div className="lg:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8">
             <div>
-              <h4 className="text-sm font-semibold text-gray-500 tracking-wider uppercase">Product</h4>
+              <h4 className="text-sm font-semibold text-gray-500 tracking-wider uppercase">Navegation</h4>
               <ul className="mt-4 space-y-4">
+                <li><Link to="/" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Home Page</Link></li>
                 <li><Link to="/dashboard" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Dashboard</Link></li>
-                <li><Link to="/watchlist" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Watchlist</Link></li>
-                <li><Link to="/screener" className={linkStyles} onClick={() => window.scrollTo({ top: 0 })}>Screener</Link></li>
               </ul>
             </div>
             <div>
