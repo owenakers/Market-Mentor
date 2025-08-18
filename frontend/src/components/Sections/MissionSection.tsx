@@ -30,9 +30,9 @@ export default function MissionSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <img
-              src="/images/owen/owen-akers.jpeg"
+              src="/images/owen/owen-profile-pic.png"
               alt="Owen Akers"
-              className="rounded-2xl shadow-lg object-cover aspect-[4/3] w-full max-w-md hover:scale-105 transition-transform duration-500"
+              className="object-cover h-full w-full max-w-md hover:scale-105 transition-transform duration-500"
               onError={(e) => {
                 e.currentTarget.src =
                   "https://placehold.co/600x450/e5e7eb/334155?text=Image+Not+Found";

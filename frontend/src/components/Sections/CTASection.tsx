@@ -28,18 +28,18 @@ const itemVariants = {
   },
 };
 
-// Animation for the decorative background shapes
-const shapeVariants = {
-    initial: {
-        scale: 1,
-        y: 0,
-    },
+// Animation for the background blobs, same as the AboutPage hero
+const blobVariants = {
     animate: {
-        y: [0, -20, 0],
+        x: [0, 150, -100, 50, 0],
+        y: [0, -100, 150, -50, 0],
+        rotate: [0, 120, -90, 60, 0],
+        scale: [1, 1.3, 0.7, 1.2, 1],
         transition: {
-            duration: 10,
+            duration: 20,
             ease: "easeInOut",
             repeat: Infinity,
+            repeatType: "loop"
         }
     }
 }
@@ -50,23 +50,21 @@ export default function CTASection() {
     // Section with a light background to match the site's theme
     <section className="relative w-full bg-white py-28 overflow-hidden">
       
-      {/* Decorative background shapes with updated light colors and reduced blur */}
+      {/* Animated Background Blobs with darker colors */}
       <motion.div
-        className="absolute top-20 -left-20 w-72 h-72 bg-indigo-100 rounded-full blur-2xl opacity-70"
-        variants={shapeVariants}
-        initial="initial"
+        className="absolute top-0 -left-20 w-96 h-96 bg-indigo-200 rounded-full filter blur-3xl opacity-60"
+        variants={blobVariants}
         animate="animate"
       />
       <motion.div
-        className="absolute bottom-10 -right-20 w-80 h-80 bg-purple-100 rounded-full blur-2xl opacity-70"
-        variants={shapeVariants}
-        initial="initial"
+        className="absolute -bottom-20 -right-20 w-96 h-96 bg-purple-200 rounded-full filter blur-3xl opacity-60"
+        variants={blobVariants}
         animate="animate"
-        transition={{ ...shapeVariants.animate.transition, delay: 2 }} // Delay the second shape's animation
+        transition={{...blobVariants.animate.transition, delay: -10}}
       />
 
       <motion.div 
-        className="relative z-10 max-w-4xl mx-auto px-4 sm-px-6 lg:px-8 text-center"
+        className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -74,21 +72,21 @@ export default function CTASection() {
       >
         <motion.h2 
           variants={itemVariants}
-          className="text-3xl md:text-4xl font-bold text-gray-900" // Text color changed for light background
+          className="text-3xl md:text-4xl font-bold text-gray-900"
         >
           Ready to Build Your Financial Future?
         </motion.h2>
 
         <motion.p 
           variants={itemVariants}
-          className="mt-6 max-w-2xl mx-auto text-lg text-gray-600" // Text color changed
+          className="mt-6 max-w-2xl mx-auto text-lg text-gray-600"
         >
           Get the clarity you need to invest with confidence. Sign up for free and unlock powerful, easy-to-use tools to track and analyze your portfolio today.
         </motion.p>
         
         <motion.div variants={itemVariants} className="mt-10">
           <Link to="/register">
-            <button className="bg-indigo-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-700 transition duration-300 text-lg shadow-lg transform hover:cursor-pointer hover:scale-105">
+            <button className="bg-indigo-600 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-700 transition duration-300 text-lg shadow-lg transform hover:scale-105">
               Get Started for Free
             </button>
           </Link>
